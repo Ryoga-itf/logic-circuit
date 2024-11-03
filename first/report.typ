@@ -91,6 +91,8 @@
 
 === 作成したネットリスト
 
+以下の @table1 に作成したネットリストを示す。
+
 #show table.cell.where(y: 0): strong
 #set table(
   stroke: (x, y) => if y == 0 {
@@ -125,9 +127,16 @@
     [N00009;], [GND], [U1.7], [U2.7], [], [], [],
   ),
   caption: "作成したネットリスト"
-)
+) <table1>
 
 === 作成した回路図
+
+作成した回路図を以下の @fig1 に示す。
+
+#figure(
+  image("./diagram1.png"),
+  caption: "作成した回路図"
+) <fig1>
 
 == 7 章 [3]Clock にデータスイッチを使った場合の観測
 
