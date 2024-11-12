@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 constexpr int HALF_CYCLE = 1000;
 
 void setup() {
