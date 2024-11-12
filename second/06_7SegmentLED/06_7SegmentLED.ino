@@ -1,14 +1,14 @@
 #include <Arduino.h>
 
-constexpr int SEG_G = 3;
-constexpr int SEG_F = 4;
-constexpr int SEG_E = 5;
-constexpr int SEG_D = 6;
-constexpr int SEG_C = 7;
-constexpr int SEG_B = 8;
-constexpr int SEG_A = 9;
-constexpr int SEG7_BIN0 = 10;
-constexpr int SEG7_BIN1 = 11;
+constexpr uint8_t SEG_G = 3;
+constexpr uint8_t SEG_F = 4;
+constexpr uint8_t SEG_E = 5;
+constexpr uint8_t SEG_D = 6;
+constexpr uint8_t SEG_C = 7;
+constexpr uint8_t SEG_B = 8;
+constexpr uint8_t SEG_A = 9;
+constexpr uint8_t SEG7_BIN0 = 10;
+constexpr uint8_t SEG7_BIN1 = 11;
 
 void setup() {
   pinMode(SEG_G, OUTPUT);
