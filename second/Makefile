@@ -12,6 +12,13 @@ setup:
 		echo "setup..."
 		$(ARDUINO_CLI) core update-index
 		$(ARDUINO_CLI) core install arduino:avr
+		
+		echo "-I${HOME}/.arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino" > compile_flags.txt
+		echo "-I${HOME}/.arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard" >> compile_flags.txt
+		echo "-I${HOME}/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/avr/include" >> compile_flags.txt
+		echo "-I${HOME}/.arduino15/packages/arduino/.arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino" >> compile_flags.txt
+		echo "-DUBRRH" >> compile_flags.txt
+
 
 compile:
 		$(ARDUINO_CLI) compile --fqbn $(BOARD) $(SKETCH_NAME)
