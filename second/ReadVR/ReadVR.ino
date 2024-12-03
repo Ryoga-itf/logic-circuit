@@ -1,5 +1,7 @@
 #include <Arduino.h>
 
+namespace seven_segment {
+
 constexpr uint8_t SEG_G = 3;
 constexpr uint8_t SEG_F = 4;
 constexpr uint8_t SEG_E = 5;
@@ -20,8 +22,6 @@ void setup() {
   pinMode(SEG_A, OUTPUT);
   pinMode(SEG7_BIN0, OUTPUT);
   pinMode(SEG7_BIN1, OUTPUT);
-
-  pinMode(A1, INPUT);
 }
 
 void write_a_digit(byte digit, byte data) {
@@ -48,7 +48,7 @@ void write_a_digit(byte digit, byte data) {
   digitalWrite(SEG_A, SEG_AP[min(data, 10)]);
 }
 
-void clear_7seg() {
+void clear() {
   for (byte i = 0; i <= 3; i++) {
     digitalWrite(SEG7_BIN0, i & 1);
     digitalWrite(SEG7_BIN1, i & 2);
@@ -62,14 +62,21 @@ void clear_7seg() {
   }
 }
 
+} // namespace seven_segment
+
+void setup() {
+  seven_segment::setup();
+  pinMode(A1, INPUT);
+}
+
 void loop() {
   auto vr = analogRead(A1);
 
   for (byte i = 0; i < 4; i++) {
-    write_a_digit(i, vr % 10);
+    seven_segment::write_a_digit(i, vr % 10);
     vr /= 10;
     delay(1);
-    clear_7seg();
+    seven_segment::clear();
     delayMicroseconds(10);
   }
 }
