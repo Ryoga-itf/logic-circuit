@@ -1,5 +1,7 @@
 #include <Arduino.h>
 
+namespace seven_segment {
+
 constexpr uint8_t SEG_G = 3;
 constexpr uint8_t SEG_F = 4;
 constexpr uint8_t SEG_E = 5;
@@ -9,21 +11,6 @@ constexpr uint8_t SEG_B = 8;
 constexpr uint8_t SEG_A = 9;
 constexpr uint8_t SEG7_BIN0 = 10;
 constexpr uint8_t SEG7_BIN1 = 11;
-
-constexpr size_t SW_NUM = 4;
-constexpr uint8_t SW_PINS[SW_NUM] = {A3, A6, A7, A2};
-
-constexpr uint8_t THRESHOLD = 511;
-
-/*
- *          SW3 (A6)
- *             |
- *             o
- * SW1 (A2)--o   o-- SW2 (A3)
- *     (16)    o         (17)
- *             |
- *          SW4 (A7)
- */
 
 void setup() {
   pinMode(SEG_G, OUTPUT);
@@ -35,10 +22,6 @@ void setup() {
   pinMode(SEG_A, OUTPUT);
   pinMode(SEG7_BIN0, OUTPUT);
   pinMode(SEG7_BIN1, OUTPUT);
-
-  for (size_t i = 0; i < SW_NUM; i++) {
-    pinMode(SW_PINS[i], INPUT);
-  }
 }
 
 void write_a_digit(byte digit, byte data) {
@@ -65,7 +48,7 @@ void write_a_digit(byte digit, byte data) {
   digitalWrite(SEG_A, SEG_AP[min(data, 10)]);
 }
 
-void clear_7seg() {
+void clear() {
   for (byte i = 0; i <= 3; i++) {
     digitalWrite(SEG7_BIN0, i & 1);
     digitalWrite(SEG7_BIN1, i & 2);
@@ -76,6 +59,31 @@ void clear_7seg() {
     digitalWrite(SEG_C, 0);
     digitalWrite(SEG_B, 0);
     digitalWrite(SEG_A, 0);
+  }
+}
+
+} // namespace seven_segment
+
+constexpr size_t SW_NUM = 4;
+constexpr uint8_t SW_PINS[SW_NUM] = {A3, A6, A7, A2};
+
+constexpr uint8_t THRESHOLD = 511;
+
+/*
+ *          SW3 (A6)
+ *             |
+ *             o
+ * SW1 (A2)--o   o-- SW2 (A3)
+ *     (16)    o         (17)
+ *             |
+ *          SW4 (A7)
+ */
+
+void setup() {
+  seven_segment::setup();
+
+  for (size_t i = 0; i < SW_NUM; i++) {
+    pinMode(SW_PINS[i], INPUT);
   }
 }
 
@@ -105,9 +113,9 @@ void loop() {
       digit[i] = (digit[i] + 1) % 10;
     }
 
-    write_a_digit(i, digit[i]);
+    seven_segment::write_a_digit(i, digit[i]);
     delay(1);
-    clear_7seg();
+    seven_segment::clear();
     delayMicroseconds(10);
   }
 }
