@@ -14,7 +14,7 @@ public:
         m_isAnalogPin(isAnalogPin) {}
 
   void setup();
-  bool read();
+  int read();
 
 private:
   uint8_t m_pin;
