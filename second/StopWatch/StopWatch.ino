@@ -36,6 +36,7 @@ void setup() {
   keyUp.setup();
   keyDown.setup();
   keyMode.setup();
+  keyDigit.setup();
 
   Timer1.initialize(1000000);
   Timer1.stop();
